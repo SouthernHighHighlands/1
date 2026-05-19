@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="https://i.ibb.co/YFsJMVR7/Southern-Highlands-Logo.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #eef5ef; /* light green tint */
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo span {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2e7d32; /* greener */
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #2e7d32;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 85vh;
+      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url('https://i.ibb.co/Z6gJdN6G/image.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      padding: 20px;
+      z-index: 2;
+    }
+
+    /* WAVE (FIXED) */
+    .wave {
+      position: absolute;
+      bottom: -1px; /* removes gap */
+      left: 0;
+      width: 100%;
+      line-height: 0;
+    }
+
+    .wave svg {
+      width: 100%;
+      height: 140px;
+      display: block;
+    }
+
+    .wave path {
+      fill: #ffffff;
+    }
+
+    /* SECTION */
+    section {
+      padding: 60px 40px;
+      background: white;
+    }
+
+    .section-title {
+      margin-bottom: 25px;
+      font-size: 2rem;
+      color: #2e7d32;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      border-bottom: 4px solid #2e7d32; /* green accent */
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #2e7d32, #66bb6a);
+      color: white;
+      text-align: center;
+      padding: 60px;
+    }
+
+    .cta button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      background: white;
+      color: #2e7d32;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    footer {
+      background: #1b1b1b;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .media-section {
+      background: #fff;
+      padding: 60px 40px;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    /* shared card */
+    .media-card {
+      height: 480px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      background: #000;
+    }
+
+    /* make iframes fill properly */
+    .media-card iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* special map styling (outer border look) */
+    .map-card {
+      padding: 8px;              /* creates “frame” effect */
+      background: #e6e6e6;       /* light border colour */
+    }
+
+    /* fix map inside padding */
+    .map-card iframe {
+      border-radius: 10px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .slider-section {
+       background: #ffffff;
+       padding: 60px 40px;
+    }
+
+    .slider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      padding: 20px 0 20px 0;
+    }
+
+    .slide {
+      min-width: 280px;
+      background: #f7f7f7;
+      border-radius: 12px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-bottom: 4px solid #2e7d32;
+    }
+
+    .slide .img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide h3 {
+      padding: 12px;
+      color: #2e7d32;
+    }
+
+    .slide p {
+      padding: 0 12px 15px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .slider {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  .slide {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none;
+  }
+
+  .slide:hover {
+    transform: translateY(-6px);
+  }
+
+  .warning-strip {
+    position: sticky;
+    top: 70px; /* height of header */
+    z-index: 999;
+    background: #f4c400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .warning-strip a {
+    color: #111;
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .icon-warning {
+    width: 28px;
+    height: 25px;
+    flex-shrink: 0;
+  }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="https://i.ibb.co/YFsJMVR7/Southern-Highlands-Logo.jpg" alt="Southern Highlands Logo">
+    <span>Southern Highlands</span>
+  </div>
+
+  <nav>
+    <a href="#">About Us</a>
+    <a href="#">Trip Ideas</a>
+    <a href="#">Social Media</a>
+    <a href="#">What's On</a>
+    <a href="#">See & Do</a>
+    <a href="#">Conferences</a>
+    <a href="#">Weddings</a>
+    <a href="#">Accommodation</a>
+    <a href="#">Tours</a>
+  </nav>
+</header>
+
+<div class="warning-strip">
+    <svg aria-hidden="true" class="icon-warning" viewBox="0 0 28 25">
+      <path fill="#323232" d="M27.572,20.493C23.932,14.179,20.29,7.867,16.649,1.555C16.068,0.545,15.179,0.001,14.013,0
+        c-1.178-0.001-2.079,0.542-2.666,1.563C9.64,4.526,7.933,7.488,6.225,10.45c-1.927,3.344-3.852,6.688-5.783,10.029
+        c-0.329,0.567-0.496,1.167-0.427,1.815c0.17,1.598,1.431,2.691,3.111,2.694c3.628,0.005,7.256,0.002,10.886,0.002v0.004
+        c3.16,0,6.322,0.004,9.485-0.004c0.703-0.001,1.424,0.05,2.106-0.081C27.659,24.518,28.62,22.314,27.572,20.493z M12.425,6.355
+        c0.289-1.178,1.706-1.748,2.784-1.158c0.504,0.276,0.66,0.764,0.763,1.271c0.177,0.88,0.118,1.768,0.04,2.653
+        c-0.156,1.818-0.307,3.638-0.488,5.455c-0.049,0.491-0.154,0.987-0.309,1.458c-0.17,0.524-0.602,0.779-1.115,0.76
+        c-0.528-0.02-0.908-0.277-1.056-0.831c-0.141-0.527-0.251-1.075-0.292-1.619c-0.163-2.156-0.293-4.314-0.435-6.472
+        c-0.014-0.002-0.028-0.004-0.043-0.007C12.321,7.362,12.306,6.841,12.425,6.355z M14.19,21.979c-1.112-0.009-1.899-0.78-1.885-1.847
+        c0.014-1.035,0.836-1.829,1.892-1.825c1.057,0.003,1.895,0.832,1.89,1.868C16.082,21.223,15.275,21.988,14.19,21.979z"></path>
+    </svg>
+
+    <a href="#">
+      Website is still in development
+    </a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h2>Closer Than You Think - The Southern Highlands</h2>
+
+  <!-- WAVE INSIDE HERO -->
+  <div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,80 C300,160 1100,0 1440,80 L1440,150 L0,150 Z"></path>
+    </svg>
+  </div>
+</div>
+
+<section class="media-section">
+  <h2 class="section-title">Discover the Southern Highlands</h2>
+
+  <div class="media-grid">
+
+    <!-- VIDEO -->
+    <div class="media-card">
+      <iframe
+        title="Closer Than You Think - The Southern Highlands"
+        width="500"
+        height="281"
+        src="https://www.youtube.com/embed/-1UYSIHCurs"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- MAP -->
+    <div class="media-card map-card">
+      <iframe 
+        src="https://www.google.com/maps?q=Southern+Highlands+NSW&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<section class="slider-section">
+  <h2 class="section-title">Towns & Villages</h2>
+
+  <div class="slider">
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/Fk5SfFfW/image.png')"></div>
+      <h3>Berrima</h3>
+      <p>Description</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/Fbb9cZnp/image.png')"></div>
+      <h3>Colo Vale</h3>
+      <p>Description</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/LXjqGtXV/image.png')"></div>
+      <h3>Penrose</h3>
+      <p>Description</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/mVr8hNh7/image.png')"></div>
+      <h3>Wingello</h3>
+      <p>Description</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/pBx32wXQ/image.png')"></div>
+      <h3>Sutton Forest</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/CpxBYdt3/image.png')"></div>
+      <h3>Robertson</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/BHPN699S/image.png')"></div>
+      <h3>Moss Vale</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/p6fwDgz3/image.png')"></div>
+      <h3>Mittagong</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/W46k1L9n/image.png')"></div>
+      <h3>Hill Top</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/BVH9c9nz/image.png')"></div>
+      <h3>Fitzroy Falls</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/6RW6FBJy/image.png')"></div>
+      <h3>Exeter</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/9HmYBQMV/image.png')"></div>
+      <h3>Canyonleigh</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/rKnLJZv0/image.png')"></div>
+      <h3>Burrawang</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/pBWCnBRp/image.png')"></div>
+      <h3>Bundanoon</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/vgQ9r3q/image.png')"></div>
+      <h3>Bowral</h3>
+      <p>Description.</p>
+    </a>
+
+    <a href="#" class="slide">
+      <div class="img" style="background-image:url('https://i.ibb.co/b5hzR362/image.png')"></div>
+      <h3>Yerrinbool</h3>
+      <p>Description.</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- EXPLORE -->
+<section>
+  <h2 class="section-title">Explore the Region</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="https://www.visitsouthernhighlands.com.au/wp-content/uploads/2019/06/428_robertson_deekramer.jpg">
+      <div class="card-content">
+        <h3>Towns & Villages</h3>
+        <p>Discover charming local towns and hidden gems.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://www.visitsouthernhighlands.com.au/wp-content/uploads/2019/05/bongbongtracka.jpg">
+      <div class="card-content">
+        <h3>Nature Trails</h3>
+        <p>Explore lush forests and scenic lookouts.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEbV2d8v4sOqAM_RQFVseYr6AhasOAr0gmQZ_Fg6wnuqlyGXFDn5QnbDjI54xwMBGfwC-cXjM2mRKskmRk-J1lVOE-CBPGv2aLhmcGXk_1SprcI6O5WRxyxk01PYu4CRcnjKcvPBg=s1360-w1360-h1020-rw">
+      <div class="card-content">
+        <h3>Family Activities</h3>
+        <p>Fun experiences for all ages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section>
+  <h2 class="section-title">Upcoming Events</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?tulip,festival">
+      <div class="card-content">
+        <h3>Tulip Time Festival</h3>
+        <p>Spring blooms and vibrant gardens.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?art,exhibition">
+      <div class="card-content">
+        <h3>Art Exhibitions</h3>
+        <p>Local artists showcasing creativity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Plan Your Escape</h2>
+  <p>Relax, explore, and enjoy a country getaway.</p>
+  <button>Start Planning</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Southern Highlands Tourism</p>
+</footer>
+
+
+<script>
+const titles = [
+  "Southern Highlands",
+  "Closer Than You Think"
+];
+
+let index = 0;
+
+setInterval(() => {
+  document.title = titles[index];
+  index = (index + 1) % titles.length;
+}, 3000);
+</script>
+
+</body>
+</html>
