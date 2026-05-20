@@ -371,8 +371,7 @@
 <!-- HERO -->
 <div class="hero">
   <h2>
-    Closer Than You Think -
-    <span class="changing-text">The Southern Highlands</span>
+    <span class="changing-text">Southern Highlands</span>
   </h2>
 
   <!-- WAVE INSIDE HERO -->
@@ -583,18 +582,21 @@
 
 
 <script>
+/* TAB TITLE ROTATION */
 const titles = [
   "Southern Highlands",
   "Closer Than You Think"
 ];
 
-let index = 0;
+let titleIndex = 0;
 
 setInterval(() => {
-  document.title = titles[index];
-  index = (index + 1) % titles.length;
+  document.title = titles[titleIndex];
+  titleIndex = (titleIndex + 1) % titles.length;
 }, 3000);
 
+
+/* HERO TEXT ROTATION */
 const texts = [
   "The Southern Highlands",
   "Closer Than You Think"
@@ -602,25 +604,27 @@ const texts = [
 
 const changingText = document.querySelector(".changing-text");
 
-let index = 0;
+let textIndex = 0;
 
 setInterval(() => {
-  // Blur out
+
+  /* Blur out */
   changingText.style.opacity = "0";
   changingText.style.filter = "blur(8px)";
 
   setTimeout(() => {
-    // Change text
-    index = (index + 1) % texts.length;
-    changingText.textContent = texts[index];
 
-    // Blur back in
+    /* Change text */
+    textIndex = (textIndex + 1) % texts.length;
+    changingText.textContent = texts[textIndex];
+
+    /* Blur back in */
     changingText.style.opacity = "1";
     changingText.style.filter = "blur(0px)";
+
   }, 500);
 
 }, 3000);
-
 </script>
 
 </body>
