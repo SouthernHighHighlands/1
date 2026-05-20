@@ -304,9 +304,22 @@
 
 .changing-text {
   display: inline-block;
-  min-width: 420px; /* stops jumping */
+  min-width: 360px;   /* stops shrinking/jumping */
   text-align: center;
-  transition: opacity 0.5s ease, filter 0.5s ease;
+
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0px);
+
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+  will-change: opacity, filter, transform;
+}
+
+/* hidden state */
+.changing-text.hide {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(8px);
 }
 
 /* Smooth blur + fade text swap */
@@ -583,22 +596,9 @@
 </footer>
 
 
+<span class="changing-text">Southern Highlands</span>
+
 <script>
-const titles = [
-  "Southern Highlands",
-  "Closer Than You Think"
-];
-
-let titleIndex = 0;
-document.title = titles[0];
-
-setInterval(() => {
-  titleIndex = (titleIndex + 1) % titles.length;
-  document.title = titles[titleIndex];
-}, 3000);
-
-
-/* HERO TEXT */
 const texts = [
   "Southern Highlands",
   "Closer Than You Think"
@@ -607,26 +607,34 @@ const texts = [
 const changingText = document.querySelector(".changing-text");
 
 let textIndex = 0;
-changingText.textContent = texts[0];
 
 setInterval(() => {
 
-  // fade OUT first
-  changingText.classList.add("hide");
+  /* Blur out */
+  changingText.style.opacity = "0";
+  changingText.style.filter = "blur(8px)";
 
   setTimeout(() => {
 
-    // swap text while hidden
+    /* Change text */
     textIndex = (textIndex + 1) % texts.length;
     changingText.textContent = texts[textIndex];
 
-    // fade IN
-    changingText.classList.remove("hide");
+    /* Blur back in */
+    changingText.style.opacity = "1";
+    changingText.style.filter = "blur(0px)";
 
-  }, 350);
+  }, 500);
 
 }, 3000);
 </script>
+
+<style>
+.changing-text {
+  display: inline-block;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+</style>
 
 </body>
 </html>
