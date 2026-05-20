@@ -584,15 +584,12 @@
 
 
 <script>
-/* TAB TITLE ROTATION */
 const titles = [
   "Southern Highlands",
   "Closer Than You Think"
 ];
 
 let titleIndex = 0;
-
-/* Set first title */
 document.title = titles[0];
 
 setInterval(() => {
@@ -601,7 +598,7 @@ setInterval(() => {
 }, 3000);
 
 
-/* HERO TEXT ROTATION */
+/* HERO TEXT */
 const texts = [
   "Southern Highlands",
   "Closer Than You Think"
@@ -610,29 +607,23 @@ const texts = [
 const changingText = document.querySelector(".changing-text");
 
 let textIndex = 0;
-
-/* Set first text */
 changingText.textContent = texts[0];
 
 setInterval(() => {
 
-  /* Fade + blur out */
-  changingText.style.opacity = "0";
-  changingText.style.filter = "blur(10px)";
-  changingText.style.transform = "translateY(10px)";
+  // fade OUT first
+  changingText.classList.add("hide");
 
   setTimeout(() => {
 
-    /* Change text */
+    // swap text while hidden
     textIndex = (textIndex + 1) % texts.length;
     changingText.textContent = texts[textIndex];
 
-    /* Fade + blur back in */
-    changingText.style.opacity = "1";
-    changingText.style.filter = "blur(0px)";
-    changingText.style.transform = "translateY(0px)";
+    // fade IN
+    changingText.classList.remove("hide");
 
-  }, 500);
+  }, 350);
 
 }, 3000);
 </script>
