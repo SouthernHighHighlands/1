@@ -599,6 +599,24 @@
 <span class="changing-text">Southern Highlands</span>
 
 <script>
+/* TAB TITLE ROTATION */
+const titles = [
+  "Southern Highlands",
+  "Closer Than You Think"
+];
+
+let titleIndex = 0;
+
+/* set first title properly */
+document.title = titles[0];
+
+setInterval(() => {
+  titleIndex = (titleIndex + 1) % titles.length;
+  document.title = titles[titleIndex];
+}, 3000);
+
+
+/* HERO TEXT ROTATION */
 const texts = [
   "Southern Highlands",
   "Closer Than You Think"
@@ -608,28 +626,26 @@ const changingText = document.querySelector(".changing-text");
 
 let textIndex = 0;
 
-setInterval(() => {
+/* safety check */
+if (changingText) {
+  changingText.textContent = texts[0];
 
-  /* Blur out */
-  changingText.style.opacity = "0";
-  changingText.style.filter = "blur(8px)";
+  setInterval(() => {
 
-  setTimeout(() => {
+    changingText.style.opacity = "0";
+    changingText.style.filter = "blur(8px)";
 
-    /* Change text */
-    textIndex = (textIndex + 1) % texts.length;
-    changingText.textContent = texts[textIndex];
+    setTimeout(() => {
+      textIndex = (textIndex + 1) % texts.length;
+      changingText.textContent = texts[textIndex];
 
-    /* Blur back in */
-    changingText.style.opacity = "1";
-    changingText.style.filter = "blur(0px)";
+      changingText.style.opacity = "1";
+      changingText.style.filter = "blur(0px)";
+    }, 400);
 
-  }, 500);
-
-}, 3000);
+  }, 3000);
+}
 </script>
-
-<style>
 .changing-text {
   display: inline-block;
   transition: opacity 0.5s ease, filter 0.5s ease;
