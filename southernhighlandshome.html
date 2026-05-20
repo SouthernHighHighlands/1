@@ -296,6 +296,36 @@
     flex-shrink: 0;
   }
 
+  .hero h2 {
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
+.changing-text {
+  display: inline-block;
+  animation: blurChange 6s infinite;
+}
+
+/* Smooth blur + fade text swap */
+@keyframes blurChange {
+  0%, 45% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  50% {
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  55%, 100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+
   </style>
 </head>
 
@@ -340,7 +370,10 @@
 
 <!-- HERO -->
 <div class="hero">
-  <h2>Closer Than You Think - The Southern Highlands</h2>
+  <h2>
+    Closer Than You Think -
+    <span class="changing-text">The Southern Highlands</span>
+  </h2>
 
   <!-- WAVE INSIDE HERO -->
   <div class="wave">
@@ -561,6 +594,33 @@ setInterval(() => {
   document.title = titles[index];
   index = (index + 1) % titles.length;
 }, 3000);
+
+const texts = [
+  "The Southern Highlands",
+  "Closer Than You Think"
+];
+
+const changingText = document.querySelector(".changing-text");
+
+let index = 0;
+
+setInterval(() => {
+  // Blur out
+  changingText.style.opacity = "0";
+  changingText.style.filter = "blur(8px)";
+
+  setTimeout(() => {
+    // Change text
+    index = (index + 1) % texts.length;
+    changingText.textContent = texts[index];
+
+    // Blur back in
+    changingText.style.opacity = "1";
+    changingText.style.filter = "blur(0px)";
+  }, 500);
+
+}, 3000);
+
 </script>
 
 </body>
